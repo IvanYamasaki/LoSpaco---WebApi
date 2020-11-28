@@ -1,7 +1,8 @@
 ﻿using System;
 
 namespace  LoSpacoWebAPi.Models {
-    public class Service {
+    public class Service
+    {
         public ushort Id { get; private set; }
         public string Name { get; private set; }
         public decimal Price { get; private set; }
@@ -11,8 +12,10 @@ namespace  LoSpacoWebAPi.Models {
         public TimeSpan Time { get; private set; }
         public byte[] Image { get; private set; }
         public string PropperClothing { get; private set; }
+        public decimal? StarRating { get; private set; }
 
-        public Service(ushort id, string name, decimal price, string minifiedDesc, string completeDesc, Category category, TimeSpan time, byte[] image, string propperClothing) {
+        public Service(ushort id, string name, decimal price, string minifiedDesc, string completeDesc, Category category, TimeSpan time, byte[] image, string propperClothing, decimal? starRating)
+        {
             Id = id;
             Name = name;
             Price = price;
@@ -22,6 +25,7 @@ namespace  LoSpacoWebAPi.Models {
             Time = time;
             Image = image;
             PropperClothing = propperClothing;
+            StarRating = starRating;
         }
 
         public Service() { }

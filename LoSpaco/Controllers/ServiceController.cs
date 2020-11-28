@@ -36,12 +36,6 @@ namespace LoSpaco.Controllers
         {
             return ServiceDAO.GetByName(name);
         }
-                
-        [ActionName("GetRating")]
-        public string GetRating(string name)
-        {
-            return ServiceDAO.GetRating(name);
-        }
 
         [ActionName("GetMinPrice")]
         public int GetMinPrice()
@@ -53,6 +47,12 @@ namespace LoSpaco.Controllers
         public int GetMaxPrice()
         {
             return ServiceDAO.GetMaxPrice();
+        }
+        
+        [ActionName("GetByCategoryId")]
+        public List<Service> GetByCategoryId(ushort id)
+        {
+            return ServiceDAO.GetByCategoryId(id);
         }
 
         // POST: api/Service
