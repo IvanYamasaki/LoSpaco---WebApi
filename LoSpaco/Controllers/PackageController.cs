@@ -35,22 +35,5 @@ namespace LoSpaco.Controllers
         {
             return PackageDAO.GetMinPrice();
         }
-
-
-
-        // POST: api/Package
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Package/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Package/5
-        public void Delete(int id)
-        {
-        }
     }
 }

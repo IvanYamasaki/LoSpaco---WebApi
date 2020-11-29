@@ -48,26 +48,11 @@ namespace LoSpaco.Controllers
         {
             return ServiceDAO.GetMaxPrice();
         }
-        
+
         [ActionName("GetByCategoryId")]
         public List<Service> GetByCategoryId(ushort id)
         {
             return ServiceDAO.GetByCategoryId(id);
-        }
-
-        // POST: api/Service
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Service/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Service/5
-        public void Delete(int id)
-        {
         }
     }
 }
