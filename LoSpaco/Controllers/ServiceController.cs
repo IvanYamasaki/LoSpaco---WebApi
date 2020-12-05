@@ -7,11 +7,6 @@ namespace LoSpaco.Controllers
 {
     public class ServiceController : ApiController
     {
-        //[ActionName("GetQuery")]
-        //public string GetQuery(int index, string category, int? startPrice, int? endPrice)
-        //{   
-        //    return ServiceDAO.GetQuery(index, category, startPrice, endPrice);
-        //}
 
         [ActionName("GetList")]
         public IEnumerable<Service> GetList()
@@ -36,6 +31,12 @@ namespace LoSpaco.Controllers
         {
             return ServiceDAO.GetByName(name);
         }
+        
+        //[ActionName("GetCart")]
+        //public Service GetCart(string name)
+        //{
+        //    return ServiceDAO.GetCart(name);
+        //}
 
         [ActionName("GetMinPrice")]
         public int GetMinPrice()
@@ -50,9 +51,9 @@ namespace LoSpaco.Controllers
         }
 
         [ActionName("GetByCategoryId")]
-        public List<Service> GetByCategoryId(ushort id)
+        public IEnumerable<Service> GetByCategoryId(ushort id)
         {
-            return ServiceDAO.GetByCategoryId(id);
+            return ServiceDAO.GetListByCategory(id);
         }
     }
 }

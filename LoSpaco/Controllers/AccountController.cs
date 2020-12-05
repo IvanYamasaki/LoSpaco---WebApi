@@ -36,9 +36,9 @@ namespace LoSpaco.Controllers
         }
         
         [ActionName("UpdatePassword")]
-        public dynamic UpdatePassword(string currentPassword, string newPassword)
+        public dynamic UpdatePassword(uint id, string currentPassword, string newPassword)
         {
-            return AccountDAO.UpdatePassword(currentPassword, newPassword);
+            return AccountDAO.UpdatePassword(id, currentPassword, newPassword);
         }
     }
 }

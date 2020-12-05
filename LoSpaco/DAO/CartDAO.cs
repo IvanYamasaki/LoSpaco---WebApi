@@ -1,19 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace  LoSpacoWebAPi.DAO {
-    public abstract class CartDAO {
-        public static List<dynamic> GetList() {
+namespace LoSpacoWebAPi.DAO
+{
+    public abstract class CartDAO
+    {
+        private static Database db = new Database();
+
+        public static List<dynamic> GetList(uint id)
+        {
             List<dynamic> list = new List<dynamic>();
-            Database.ReaderRows(Database.ReturnCommand($"select itemname, itemtype from vw_cart where loginemail='{Security.Context.GetUser()}'"), row => list.Add(new { Name = row[0], Type = row[1] }));
+            db.ReaderRows(db.ReturnCommand($"select itemname, itemtype, ItemQnt, ItemImage, ItemPrice from vw_cart where LoginId='{id}'"), row => list.Add(new { Name = row[0], Type = row[1], Qnt = row[2], Price = row[3], Image = row[4] }));
+            return list;
+        }
+        
+        public static List<dynamic> GetCart(uint id)
+        {
+            List<dynamic> list = new List<dynamic>();
+            db.ReaderRows(db.ReturnCommand($"select itemname, ItemQnt, ItemImage, ItemPrice, ItemType from vw_cart where LoginId='{id}'"), row => list.Add(new { Name = row[0], Quantity = row[1], Price = row[3], Image = row[2], ListServicesNames = (string)row[4] == "PACOTE" ?PackageDAO.GetServNameFromPackage(PackageDAO.GetByName((string) row[0]).Id) : null }));
             return list;
         }
 
-        public static object GetTotalPrice() => Database.ReaderValue(Database.ReturnProcedure("sp_SelectTotalValueCart", Security.Context.GetUser()));
-        public static object[] GetByName(string name) => Database.ReaderRow(Database.ReturnCommand($"select ItemName, ItemQnt, ItemType from vw_Cart where LoginEmail='{Security.Context.GetUser()}' and ItemName = '{name}'"));
-        public static void InsertItem(string name, byte quantity) => Database.ExecuteProcedure("sp_insertItemCart", name, Security.Context.GetUser(), quantity);
-        public static object[] RemoveItem(string name) => Database.ReaderAllValue(Database.ReturnProcedure("sp_RemoveItemCart", Security.Context.GetUser(), name));
-        public static object[] UpdateQuantity(string name, byte qty) => Database.ReaderAllValue(Database.ReturnProcedure("sp_UpdateQntItemCart", Security.Context.GetUser(), name, qty));
-        public static bool IsCartEmpty() => Database.ReaderValue(Database.ReturnProcedure("sp_selectCart", Security.Context.GetUser())) == null;
-        public static byte GetQuantity(string name) => (byte)Database.ReaderValue(Database.ReturnCommand($"select itemqnt from vw_cart where loginemail='{Security.Context.GetUser()}' and itemname = '{name}'"));
+        public static object GetTotalPrice(uint id) => db.ReaderValue(db.ReturnProcedure("sp_SelectTotalValueCart", id));
+        public static void InsertItem(uint id, string name, byte quantity) => db.ExecuteProcedure("sp_insertItemCart", name, id, quantity);
+        public static object[] RemoveItem(uint id, string name) => db.ReaderAllValue(db.ReturnProcedure("sp_RemoveItemCart", id, name));
+        public static object[] UpdateQuantity(uint id, string name, byte qty) => db.ReaderAllValue(db.ReturnProcedure("sp_UpdateQntItemCart", id, name, qty));
+        public static object GetItemsCount(uint id) => db.ReaderValue(db.ReturnProcedure("sp_CountItemCart", id));
+        public static bool IsCartEmpty(uint id) => Convert.ToByte(GetItemsCount(id)) == 0;
+        public static byte GetQuantity(uint id, string name) => (byte)db.ReaderValue(db.ReturnCommand($"select itemqnt from vw_cart where loginid='{id}' and itemname = '{name}'"));
     }
 }
+

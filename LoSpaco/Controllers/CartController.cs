@@ -12,51 +12,51 @@ namespace LoSpaco.Controllers
     {
 
         [ActionName("GetList")]
-        public List<dynamic> GetList()
+        public List<dynamic> GetList(ushort id)
         {
-            return CartDAO.GetList();
+            return CartDAO.GetList(id);
         }
         
-        [ActionName("GetByName")]
-        public object[] GetByName(string name)
+        [ActionName("GetCart")]
+        public List<dynamic> GetCart(ushort id)
         {
-            return CartDAO.GetByName(name);
+            return CartDAO.GetCart(id);
         }
-
+        
         [ActionName("GetTotalPrice")]
-        public object GetTotalPrice(int id)
+        public object GetTotalPrice(uint id)
         {
-            return CartDAO.GetTotalPrice();
+            return CartDAO.GetTotalPrice(id);
         }
 
         [ActionName("InsertItem")]
-        public void InsertItem(string name, byte quantity)
+        public void InsertItem(uint id, string name, byte quantity)
         {
-            CartDAO.InsertItem(name, quantity);
+            CartDAO.InsertItem(id, name, quantity);
         }
         
         [ActionName("RemoveItem")]
-        public object[] RemoveItem(string name)
+        public object[] RemoveItem(uint id, string name)
         {
-            return CartDAO.RemoveItem(name);
+            return CartDAO.RemoveItem(id, name);
         }
         
         [ActionName("UpdateQuantity")]
-        public object[] UpdateQuantity(string name, byte qty)
+        public object[] UpdateQuantity(uint id, string name, byte qty)
         {
-            return CartDAO.UpdateQuantity(name, qty);
+            return CartDAO.UpdateQuantity(id, name, qty);
         }
 
         [ActionName("IsCartEmpty")]
-        public bool IsCartEmpty()
+        public bool IsCartEmpty(uint id)
         {
-            return CartDAO.IsCartEmpty();
+            return CartDAO.IsCartEmpty(id);
         }
                 
         [ActionName("GetQuantity")]
-        public byte GetQuantity(string name)
+        public byte GetQuantity(uint id, string name)
         {
-            return CartDAO.GetQuantity(name);
+            return CartDAO.GetQuantity(id, name);
         }
     }
 }

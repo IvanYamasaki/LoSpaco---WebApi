@@ -27,6 +27,21 @@ namespace  LoSpacoWebAPi.Models {
             PropperClothing = propperClothing;
             StarRating = starRating;
         }
+        
+        public Service(ushort id, string name, decimal price, byte[] image)
+        {
+            Id = id;
+            Name = name;
+            Price = price;
+            Image = image;
+        }
+        
+        public Service(ushort id, string name, byte[] image)
+        {
+            Id = id;
+            Name = name;
+            Image = image;
+        }
 
         public Service() { }
     }

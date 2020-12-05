@@ -12,15 +12,15 @@ namespace LoSpaco.Controllers
     public class ReviewController : ApiController
     {
         [ActionName("GetList")]
-        public IEnumerable<Review> GetList(string service)
+        public IEnumerable<Review> GetList(ushort id)
         {
-            return ReviewDAO.GetList(service);
+            return ReviewDAO.GetList(id);
         }
 
         [ActionName("Insert")]
-        public void Insert(string name, string review, float rating)
+        public void Insert(uint id, string name, string review, float rating)
         {
-            ReviewDAO.Insert(name, review, rating);
+            ReviewDAO.Insert(id, name, review, rating);
         }
     }
 }

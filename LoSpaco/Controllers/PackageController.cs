@@ -24,6 +24,12 @@ namespace LoSpaco.Controllers
         {
             return PackageDAO.GetServicesFromPackage(id);
         }
+        
+        //[ActionName("GetCart")]
+        //public Package GetCart(string name)
+        //{
+        //    return PackageDAO.GetCart(name);
+        //}
 
         [ActionName("GetMaxPrice")]
         public int GetMaxPrice()
